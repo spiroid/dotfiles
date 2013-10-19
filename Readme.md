@@ -1,4 +1,7 @@
 Dotfiles
 --------
 
-My configuration for various applications
+Just a place to keep my personal dotfiles
+
+ * VIM
+ * BASHRC
