@@ -1,0 +1,11 @@
+# Git generated files to ignore
+*.orig-*
+*.orig
+
+# Mac crap
+DS_*
+
+# Editors
+.idea
+*~
+*.swp
