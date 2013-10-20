@@ -107,6 +107,9 @@ Bundle 'jmcantrell/vim-virtualenv'
 " see https://github.com/davidhalter/jedi-vim#installation
 Bundle 'davidhalter/jedi-vim'
 
+" Pydoc integration
+Bundle 'fs111/pydoc.vim'
+
 
 " ---- "
 " HTML "
