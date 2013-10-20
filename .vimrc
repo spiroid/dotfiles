@@ -86,13 +86,31 @@ if executable('ctags')
   Bundle 'majutsushi/tagbar'
 endif
 
+
+" --- "
+" VIM "
+" --- "
+" A syntax checker / linter for vim files
+Bundle 'dbakker/vim-lint'
+
+
 " ------ "
 " Python "
 " ------ "
+" Virtual env manipulation inside vim
 Bundle 'jmcantrell/vim-virtualenv'
+
+" Python completion
 Bundle 'davidhalter/jedi-vim'
 
-" HTML
+" Pyflakes, pep8 wrapper
+" -> already enabled by stastic no ?
+" Bundle 'nvie/vim-flake8'
+
+
+" ---- "
+" HTML "
+" ---- "
 Bundle 'othree/html5.vim'
 
 " Scala
