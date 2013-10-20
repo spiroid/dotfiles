@@ -101,6 +101,8 @@ Bundle 'dbakker/vim-lint'
 Bundle 'jmcantrell/vim-virtualenv'
 
 " Python completion
+" Need to install the python Jedi autocompletion app to work
+" see https://github.com/davidhalter/jedi-vim#installation
 Bundle 'davidhalter/jedi-vim'
 
 " Pyflakes, pep8 wrapper
