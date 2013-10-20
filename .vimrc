@@ -33,7 +33,7 @@ Bundle 'mileszs/ack.vim'
 " ------- "
 " File explorer for vim
 Bundle 'scrooloose/nerdtree'
-Bundle 'jistr/vim-nerdtree-tabs'
+" Bundle 'jistr/vim-nerdtree-tabs'
 " The plugin provides mappings to easily delete, change and add such
 " surroundings in pairs
 Bundle 'tpope/vim-surround'
@@ -55,6 +55,8 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'gregsexton/gitv'
 " Scripts for creating gists
 Bundle 'mattn/gist-vim'
+" Git gutter
+Bundle 'airblade/vim-gitgutter'
 
 " ------ "
 " Colors "
@@ -104,10 +106,6 @@ Bundle 'jmcantrell/vim-virtualenv'
 " Need to install the python Jedi autocompletion app to work
 " see https://github.com/davidhalter/jedi-vim#installation
 Bundle 'davidhalter/jedi-vim'
-
-" Pyflakes, pep8 wrapper
-" -> already enabled by stastic no ?
-" Bundle 'nvie/vim-flake8'
 
 
 " ---- "
