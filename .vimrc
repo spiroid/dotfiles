@@ -171,9 +171,10 @@ set foldenable                 " auto fold code
 set pastetoggle=<F12>          " pastetoggle (sane indentation on pastes)
 
 " Indenting
-set shiftwidth=4               " use indents of 2 spaces
+set modeline
+set shiftwidth=4               " use indents of 4 spaces
 set expandtab                  " tabs are spaces, not tabs
-set tabstop=4                  " an indentation every 2 columns
+set tabstop=4                  " an indentation every 4 columns
 set softtabstop=4              " let backspace delete indent
 
 " Remove trailing whitespaces and ^M chars
@@ -242,6 +243,13 @@ endif
 set wildmenu                   " show list instead of just completing
 set wildmode=list:longest,full " command <Tab> completion, list matches, then longest common part, then all.
 set whichwrap=b,s,h,l,<,>,[,]  " backspace and cursor keys wrap to
+
+
+" """""""""" "
+" NAVIGATION "
+" """""""""" "
+nmap <C-n> :bn<CR>
+nmap <C-p> :bp<CR>
 
 
 " """"" "
