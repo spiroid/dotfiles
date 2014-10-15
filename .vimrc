@@ -21,7 +21,6 @@ Bundle 'gmarik/vundle'
 " ------------ "
 " Dependencies "
 " ------------ "
-Bundle 'MarcWeber/vim-addon-mw-utils'
 " Utility functions required by other plugins
 Bundle 'tomtom/tlib_vim'
 " Frontend for perl module App:ack
@@ -33,18 +32,19 @@ Bundle 'mileszs/ack.vim'
 " ------- "
 " File explorer for vim
 Bundle 'scrooloose/nerdtree'
-" Bundle 'jistr/vim-nerdtree-tabs'
 " The plugin provides mappings to easily delete, change and add such
 " surroundings in pairs
 Bundle 'tpope/vim-surround'
 " Full path fuzzy file, buffer, mru, tag, ... finder for Vim
 Bundle 'kien/ctrlp.vim'
 " Enhanced status line
-"Bundle 'Lokaltog/vim-powerline'
 Bundle 'bling/vim-airline'
 
 " Switch between abs and relative numbering depending of the mode
 Bundle 'myusuf3/numbers.vim'
+
+" Editorconfig support
+Bundle 'editorconfig/editorconfig-vim'
 
 " --- "
 " Git "
@@ -62,7 +62,6 @@ Bundle 'airblade/vim-gitgutter'
 " Colors "
 " ------ "
 Bundle 'altercation/vim-colors-solarized'
-Bundle 'jelera/vim-gummybears-colorscheme'
 Bundle 'zeis/vim-kolor'
 
 " ----------- "
@@ -72,7 +71,8 @@ Bundle 'zeis/vim-kolor'
 Bundle 'scrooloose/syntastic'
 
 " Code snippets
-Bundle 'SirVer/ultisnips'
+"Bundle 'SirVer/ultisnips'
+"Bundle 'honza/vim-snippets'
 
 " Calling web apis
 Bundle 'mattn/webapi-vim'
@@ -116,10 +116,32 @@ Bundle 'fs111/pydoc.vim'
 " ---- "
 Bundle 'othree/html5.vim'
 
-" Scala
+" ----- "
+" Scala "
+" ------ "
 Bundle 'derekwyatt/vim-scala'
 Bundle 'derekwyatt/vim-sbt'
 Bundle 'gre/play2vim'
+
+
+" ---------- "
+" Javascript "
+" ---------- "
+" @see: https://github.com/burnettk/vim-angular
+
+" Vastly improved Javascript indentation and syntax support in Vim.
+Bundle 'pangloss/vim-javascript'
+
+" Syntax for JavaScript libraries," including Angular. This is the hotness you
+"want to autocomplete ng-repeat et al. in your html.
+Bundle 'othree/javascript-libraries-syntax.vim'
+
+" repo for UltiSnips & Snipmate for angular to be included as a submodule for
+" use in your .vim directory." ngfor<tab> ftw
+"Bundle 'matthewsimo/angular-vim-snippets'
+
+" Jasmine tests support
+Bundle 'claco/jasmine.vim'
 
 " ------ "
 " DevOps "
@@ -132,7 +154,11 @@ Bundle 't9md/vim-chef'
 "Bundle 'tpope/vim-markdown'
 " Enhanced markdown support
 Bundle 'jtratner/vim-flavored-markdown'
-Bundle 'sudar/vim-arduino-snippets'
+"Bundle 'sudar/vim-arduino-snippets'
+
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+Plugin 'docker/docker', {'rtp': 'contrib/syntax/vim/'}
 
 
 " """"""" "
@@ -233,7 +259,9 @@ if has('statusline')
   set laststatus=2
   set statusline=%<%f\                     " Filename
   set statusline+=%w%h%m%r                 " Options
-  set statusline+=%{fugitive#statusline()} " Git Hotness
+  if has('fugitive')
+    set statusline+=%{fugitive#statusline()} " Git Hotness
+  endif
   set statusline+=\ [%{&ff}/%Y]            " Filetype
   set statusline+=\ [%{getcwd()}]          " Current dir
   set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
