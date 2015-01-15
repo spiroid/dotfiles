@@ -32,6 +32,10 @@ Bundle 'mileszs/ack.vim'
 " ------- "
 " File explorer for vim
 Bundle 'scrooloose/nerdtree'
+
+" Buffer explorer / manager
+Bundle 'jlanzarotta/bufexplorer'
+
 " The plugin provides mappings to easily delete, change and add such
 " surroundings in pairs
 Bundle 'tpope/vim-surround'
