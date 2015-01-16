@@ -41,14 +41,21 @@ Bundle 'jlanzarotta/bufexplorer'
 Bundle 'tpope/vim-surround'
 " Full path fuzzy file, buffer, mru, tag, ... finder for Vim
 Bundle 'kien/ctrlp.vim'
+
+" Maintains a history of previous yanks, changes and deletes
+Bundle 'vim-scripts/YankRing.vim'
+
+
+" ---------  "
+" Display    "
+" ---------- "
 " Enhanced status line
 Bundle 'bling/vim-airline'
 
 " Switch between abs and relative numbering depending of the mode
 Bundle 'myusuf3/numbers.vim'
 
-" Editorconfig support
-Bundle 'editorconfig/editorconfig-vim'
+
 
 " --- "
 " Git "
@@ -62,15 +69,23 @@ Bundle 'mattn/gist-vim'
 " Git gutter
 Bundle 'airblade/vim-gitgutter'
 
+
 " ------ "
 " Colors "
 " ------ "
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'zeis/vim-kolor'
 
+
 " ----------- "
 " Programming "
 " ----------- "
+
+" ------------ "
+" Syntax check "
+" ------------ "
+" Editorconfig support
+Bundle 'editorconfig/editorconfig-vim'
 " Syntax checking for various languages
 Bundle 'scrooloose/syntastic'
 
