@@ -95,8 +95,6 @@ Bundle 'scrooloose/syntastic'
 " Calling web apis
 Bundle 'mattn/webapi-vim'
 
-" Commenting / uncommenting lines / blocs etc.
-Bundle 'scrooloose/nerdcommenter'
 
 " Realign tabs
 Bundle 'godlygeek/tabular'
@@ -169,10 +167,8 @@ Bundle 't9md/vim-chef'
 " ---- "
 " Misc "
 " ---- "
-"Bundle 'tpope/vim-markdown'
 " Enhanced markdown support
 Bundle 'jtratner/vim-flavored-markdown'
-"Bundle 'sudar/vim-arduino-snippets'
 
 " The sparkup vim script is in a subdirectory of this repo called vim.
 " Pass the path to set the runtimepath properly.
@@ -302,6 +298,5 @@ nmap <C-p> :bp<CR>
 " THEME "
 " """"" "
 set background=dark            " Assume a dark background
-"let g:solarized_termcolors=256 " 256 colors approximation
 let g:solarized_termtrans=1    " Transparency fix for solarized color scheme
 colorscheme solarized
