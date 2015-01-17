@@ -32,18 +32,17 @@ Bundle 'mileszs/ack.vim'
 " ------- "
 " File explorer for vim
 Bundle 'scrooloose/nerdtree'
-
 " Buffer explorer / manager
 Bundle 'jlanzarotta/bufexplorer'
-
 " The plugin provides mappings to easily delete, change and add such
 " surroundings in pairs
 Bundle 'tpope/vim-surround'
 " Full path fuzzy file, buffer, mru, tag, ... finder for Vim
 Bundle 'kien/ctrlp.vim'
-
 " Maintains a history of previous yanks, changes and deletes
 Bundle 'vim-scripts/YankRing.vim'
+" Most recently used files
+Bundle 'vim-scripts/mru.vim'
 
 
 " ---------  "
