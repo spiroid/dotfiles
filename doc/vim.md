@@ -54,7 +54,7 @@ I recommend reading the docs of these plugins to understand them better. Each of
 
 ## Included modes
 
-    not documented yet
+* [vim-flavoured-markdown](https://github.com/jtratner/vim-flavored-markdown)
 
 ## Key Mappings
 
@@ -63,4 +63,18 @@ I recommend reading the docs of these plugins to understand them better. Each of
 Open [bufexplorer](https://github.com/vim-scripts/bufexplorer.zip) and see and manage the current buffers:
     
     map <leader>o :BufExplorer<cr>
+    
+Open [MRU.vim](https://github.com/vim-scripts/mru.vim) and see the recently open files:
 
+    map <leader>r :MRU<CR>
+
+Open [ctrlp.vim](https://github.com/kien/ctrlp.vim) plugin:
+    
+    let g:ctrlp_map = '<leader>f'
+    
+Managing the [NERD Tree](https://github.com/scrooloose/nerdtree) plugin:
+
+    map <F2> :NERDTreeToggle<cr>
+    map <leader>nn :NERDTreeToggle<cr>
+    map <leader>nb :NERDTreeFromBookmark<cr>
+    map <leader>nf :NERDTreeFind<cr>
