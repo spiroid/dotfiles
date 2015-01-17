@@ -100,12 +100,16 @@ if [ -f ~/.bash_environment ]; then
     . ~/.bash_environment
 fi
 
+# 256 colors hack
+if [ -f ~/256term.sh ]; then
+    . ~/256term.sh
+fi
+
 # Ruby
-# RVM
-# [ -s "$HOME/.rvm/scripts/rvm" ] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 # CHRUBY
 source /usr/local/share/chruby/chruby.sh
 source /usr/local/share/chruby/auto.sh
 
-# NVM / Node
+# Node js
+# NVM
 source ~/.nvm/nvm.sh
