@@ -1,7 +1,11 @@
 Dotfiles
 --------
 
-Just a place to keep my personal dotfiles
+Just a place to keep my personal configuration files (dotfiles).  
 
  * VIM
- * BASHRC
+ * BASH
+
+## Documentation
+
+ * [VIM](doc/vim.md)
