@@ -40,7 +40,7 @@ Bundle 'tpope/vim-surround'
 " Full path fuzzy file, buffer, mru, tag, ... finder for Vim
 Bundle 'kien/ctrlp.vim'
 " Maintains a history of previous yanks, changes and deletes
-Bundle 'vim-scripts/YankRing.vim'
+"Bundle 'vim-scripts/YankRing.vim'
 " Most recently used files
 Bundle 'vim-scripts/mru.vim'
 
@@ -74,6 +74,7 @@ Bundle 'airblade/vim-gitgutter'
 " ------ "
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'zeis/vim-kolor'
+Bundle 'tomasr/molokai'
 
 
 " ----------- "
@@ -298,5 +299,4 @@ nmap <C-p> :bp<CR>
 " THEME "
 " """"" "
 set background=dark            " Assume a dark background
-let g:solarized_termtrans=1    " Transparency fix for solarized color scheme
-colorscheme solarized
+colorscheme molokai
