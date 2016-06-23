@@ -1,8 +1,22 @@
+
+"
+"   ██╗   ██╗ ██╗ ███╗   ███╗ ██████╗   ██████╗
+"   ██║   ██║ ██║ ████╗ ████║ ██╔══██╗ ██╔════╝
+"   ██║   ██║ ██║ ██╔████╔██║ ██████╔╝ ██║
+"   ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║ ██╔══██╗ ██║
+" ██╗╚████╔╝  ██║ ██║ ╚═╝ ██║ ██║  ██║ ╚██████╗
+" ╚═╝ ╚═══╝   ╚═╝ ╚═╝     ╚═╝ ╚═╝  ╚═╝  ╚═════╝
+"
+set encoding=utf-8 nobomb
+scriptencoding utf-8
+" note: set encoding BEFORE scriptencoding
+
 " """""""""""" "
 " REQUIREMENTS "
 " """""""""""" "
 " mandatory to allow vim specfic behaviour instead of keeping vi compatibility, use Vim improvements
 set nocompatible "Must be set on the first line
+set shell=sh
 
 " Setup Bundle Support (Vundle script : https://github.com/gmarik/vundle)
 filetype off                   " required!
@@ -13,6 +27,28 @@ call vundle#rc()
 " let Vundle manage Vundle
 " " required!
 Bundle 'gmarik/vundle'
+
+
+
+" ----------------------------------------------------------------------------
+" OS Related
+" ----------------------------------------------------------------------------
+
+" ------------------------------------
+" Clipboard -- use os clipboard
+" ------------------------------------
+set pastetoggle=<F12>
+
+if empty($SSH_CONNECTION) && has('clipboard')
+    set clipboard=unnamed  " Use clipboard register
+    if has('nvim') && !has('mac')
+    " Share X windows clipboard. NOT ON NEOVIM -- neovim automatically uses
+    " system clipboard when xclip/xsel/pbcopy are available.
+        set clipboard=unnamedplus
+    elseif has('unnamedplus')
+        set clipboard+=unnamedplus
+    endif
+endif
 
 
 " """"""" "
@@ -30,6 +66,9 @@ Bundle 'mileszs/ack.vim'
 " ------- "
 " General "
 " ------- "
+" Local .vimrc files
+Bundle 'MarcWeber/vim-addon-local-vimrc'
+
 " File explorer for vim
 Bundle 'scrooloose/nerdtree'
 " Buffer explorer / manager
@@ -37,10 +76,8 @@ Bundle 'jlanzarotta/bufexplorer'
 " The plugin provides mappings to easily delete, change and add such
 " surroundings in pairs
 Bundle 'tpope/vim-surround'
-" Full path fuzzy file, buffer, mru, tag, ... finder for Vim
-Bundle 'kien/ctrlp.vim'
+
 " Maintains a history of previous yanks, changes and deletes
-"Bundle 'vim-scripts/YankRing.vim'
 " Most recently used files
 Bundle 'vim-scripts/mru.vim'
 
@@ -90,8 +127,13 @@ Bundle 'editorconfig/editorconfig-vim'
 Bundle 'scrooloose/syntastic'
 
 " Code snippets
-"Bundle 'SirVer/ultisnips'
-"Bundle 'honza/vim-snippets'
+Bundle 'ervandew/supertab'
+
+Bundle 'SirVer/ultisnips'
+Bundle 'honza/vim-snippets'
+Bundle 'isRuslan/vim-es6'
+
+Bundle 'Valloric/YouCompleteMe'
 
 " Calling web apis
 Bundle 'mattn/webapi-vim'
@@ -127,12 +169,6 @@ Bundle 'davidhalter/jedi-vim'
 " Pydoc integration
 Bundle 'fs111/pydoc.vim'
 
-
-" ---- "
-" HTML "
-" ---- "
-Bundle 'othree/html5.vim'
-
 " ----- "
 " Scala "
 " ------ "
@@ -141,25 +177,106 @@ Bundle 'derekwyatt/vim-sbt'
 Bundle 'gre/play2vim'
 
 
-" ---------- "
-" Javascript "
-" ---------- "
-" @see: https://github.com/burnettk/vim-angular
+" ========================================================================
+" Language: HTML, XML, and generators: mustache, handlebars
+" ========================================================================
+Bundle 'othree/html5.vim'
 
-" Vastly improved Javascript indentation and syntax support in Vim.
-Bundle 'pangloss/vim-javascript'
 
-" Syntax for JavaScript libraries," including Angular. This is the hotness you
-"want to autocomplete ng-repeat et al. in your html.
-Bundle 'othree/javascript-libraries-syntax.vim'
+" ========================================================================
+" Language: JSON
+" ========================================================================
+Bundle 'elzr/vim-json'
 
-" repo for UltiSnips & Snipmate for angular to be included as a submodule for
-" use in your .vim directory." ngfor<tab> ftw
-"Bundle 'matthewsimo/angular-vim-snippets'
+" ========================================================================
+" Language: JavaScript
+" ========================================================================
+    " ----------------------------------------
+    " Syntax
+    " ----------------------------------------
 
-" Jasmine tests support
-Bundle 'claco/jasmine.vim'
+    " Options
+    " 'jelera/vim-javascript-syntax' " Jelera: No indent file
+    " 'pangloss/vim-javascript'      " pangloss' is probably the oldest, lot of
+                                   " contributors but not up-to-date
+                                   " Includes indent settings
+    " 'othree/yajs.vim'              " othree has the latest support
+    "                                " no indent file, fork of jelera
+    " The "for" is required so the syntax registers on filetype, otherwise
+    " yajs has trouble overriding the default js syntax due to runtime order
 
+    " Yet Another JavaScript Syntax file for Vim. Key differences:
+    "
+    "  * Use 'javascript' as group name's prefix, not 'javaScript' nor
+    "    JavaScript'. Works great with SyntaxComplete.
+    "  * Recognize Web API and DOM keywords. Base on Mozilla's WebIDL files
+    "  * Works perfect with javascript-libraries-syntax.vim
+    "  * Remove old, unused syntax definitions.
+    "  * Support ES6 new syntax, ex: arrow function =>.
+    Bundle 'othree/yajs.vim'
+
+    " ----------------------------------------
+    " Syntax Addons
+    " ----------------------------------------
+
+    " Options
+    "'gavocanov/vim-js-indent'                " Indent from pangloss, works well
+                                              " with yajs well
+    "'jiangmiao/simple-javascript-indenter'   " Alternative js indent
+    "'jason0x43/vim-js-indent'                " Use HTML's indenter with
+                                              " TypeScript support
+    Bundle 'gavocanov/vim-js-indent'
+
+    " Syntax for JavaScript libraries," including Angular. This is the hotness you
+    "want to autocomplete ng-repeat et al. in your html.
+    " Support libs id:
+    "
+    " * jQuery: jquery
+    " * underscore.js: underscore
+    " * Lo-Dash: underscore
+    " * Backbone.js: backbone
+    " * prelude.ls: prelude
+    " * AngularJS: angularjs
+    " * AngularUI: angularui
+    " * AngularUI Router: angularuirouter
+    " * React: react
+    " * Flux: flux
+    " * RequireJS: requirejs
+    " * Sugar.js: sugar
+    " * Jasmine: jasmine
+    " * Chai: chai
+    " * Handlebars: handlebars
+    Bundle 'othree/javascript-libraries-syntax.vim'
+
+    " repo for UltiSnips & Snipmate for angular to be included as a submodule for
+    " use in your .vim directory." ngfor<tab> ftw
+    "Bundle 'matthewsimo/angular-vim-snippets'
+
+    " es.next support
+    Bundle 'othree/es.next.syntax.vim'
+
+    " ----------------------------------------
+    " Completion
+    " ----------------------------------------
+    Bundle 'othree/jspc.vim'
+    " Ternjs vim integration
+    Bundle 'ternjs/tern_for_vim'
+
+    " ----------------------------------------
+    " JS DOC
+    " ----------------------------------------
+    " <leader>pd on function to insert jsdoc above
+    "Plug 'heavenshell/vim-jsdoc'
+    Bundle 'heavenshell/vim-jsdoc'
+    Bundle 'othree/jsdoc-syntax.vim'
+
+    " ----------------------------------------
+    " Tests
+    " ----------------------------------------
+    " Jasmine tests support
+    Bundle 'claco/jasmine.vim'
+
+    " Bundle 'mtscout6/syntastic-local-eslint.vim'
 " ------ "
 " DevOps "
 " ------ "
@@ -209,7 +326,6 @@ set autoindent                 " indent at the same level of the previous line
 set nowrap                     " don't wrap long lines
 set showmatch                  " show matching brackets/parenthesis
 set foldenable                 " auto fold code
-set pastetoggle=<F12>          " pastetoggle (sane indentation on pastes)
 
 " Indenting
 set modeline
@@ -291,8 +407,27 @@ set whichwrap=b,s,h,l,<,>,[,]  " backspace and cursor keys wrap to
 " """""""""" "
 " NAVIGATION "
 " """""""""" "
+
+" YouCompleteMe and UltiSnips compatibility, with the help of supertab
+" JDY : Not really fully working, but use it as a starter point
+
+" SuperTab Settings
+" To be compatible with YouCompleteMe
+let g:SuperTabDefaultCompletionType    = '<C-n>'
+let g:SuperTabCrMapping                = 0
+
+let g:ycm_key_list_select_completion   = ['<C-j>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
+
+" UltiSnips
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
 nmap <C-n> :bn<CR>
 nmap <C-p> :bp<CR>
+
+
 
 
 " """"" "
