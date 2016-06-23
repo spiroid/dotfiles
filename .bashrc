@@ -113,3 +113,10 @@ source /usr/local/share/chruby/auto.sh
 # Node js
 # NVM
 source ~/.nvm/nvm.sh
+
+# SEB environement configuration
+if [ -f ~/.bash-functions.sh ]; then
+    . ~/.bash-functions.sh
+fi
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
