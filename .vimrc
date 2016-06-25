@@ -11,29 +11,277 @@ set encoding=utf-8 nobomb
 scriptencoding utf-8
 " note: set encoding BEFORE scriptencoding
 
-" """""""""""" "
-" REQUIREMENTS "
-" """""""""""" "
+
+" ----------------------------------------------------------------------------
+" REQUIREMENTS
+" ----------------------------------------------------------------------------
 " mandatory to allow vim specfic behaviour instead of keeping vi compatibility, use Vim improvements
 set nocompatible "Must be set on the first line
 set shell=sh
 
-" Setup Bundle Support (Vundle script : https://github.com/gmarik/vundle)
+" Setup Plug Support (Vundle script : https://github.com/gmarik/vundle)
 filetype off                   " required!
+call plug#begin('~/.vim/plugged')
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
 
-" let Vundle manage Vundle
-" " required!
-Bundle 'gmarik/vundle'
+" ----------------------------------------------------------------------------
+" Plugins
+" ----------------------------------------------------------------------------
 
+" ------------------------------------
+" Dependencies
+" ------------------------------------
+" Utility functions required by other plugins
+Plug 'tomtom/tlib_vim'
+
+
+" ------------------------------------
+" General
+" ------------------------------------
+" Local .vimrc files
+Plug 'MarcWeber/vim-addon-local-vimrc'
+
+" File explorer for vim
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+
+" Buffer explorer / manager
+Plug 'jlanzarotta/bufexplorer'
+" The plugin provides mappings to easily delete, change and add such
+" surroundings in pairs
+Plug 'tpope/vim-surround'
+
+" Maintains a history of previous yanks, changes and deletes
+" Most recently used files
+Plug 'vim-scripts/mru.vim'
+
+" Fuzzy search
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+
+
+" ------------------------------------
+" Display
+" ------------------------------------
+" Enhanced status line
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" Switch between abs and relative numbering depending of the mode
+Plug 'myusuf3/numbers.vim'
+
+
+" ------------------------------------
+" Git
+" ------------------------------------
+" Basic Git operations in vim
+Plug 'tpope/vim-fugitive'
+" A gitk clone for vim: to test
+Plug 'gregsexton/gitv'
+" Scripts for creating gists
+Plug 'mattn/gist-vim'
+" Git gutter
+Plug 'airblade/vim-gitgutter'
+
+
+" ------------------------------------
+" Colors
+" ------------------------------------
+Plug 'altercation/vim-colors-solarized'
+Plug 'zeis/vim-kolor'
+Plug 'tomasr/molokai'
+
+
+" ------------------------------------
+" Programming
+" ------------------------------------
+
+" -------------------
+" Syntax check
+" & highlight
+" -------------------
+" Editorconfig support
+Plug 'editorconfig/editorconfig-vim'
+
+" Syntax checking for various languages
+Plug 'scrooloose/syntastic'
+
+" A syntax checker / linter for vim files
+Plug 'dbakker/vim-lint'
+
+" Realign tabs
+Plug 'godlygeek/tabular'
+
+
+" -------------------
+" Snippets
+" -------------------
+" Load on nothing
+Plug 'ervandew/supertab'
+Plug 'SirVer/ultisnips', { 'on': [] }
+Plug 'Valloric/YouCompleteMe', { 'on': [] }
+
+augroup load_us_ycm
+  autocmd!
+  autocmd InsertEnter * call plug#load('ultisnips', 'YouCompleteMe')
+                     \| call youcompleteme#Enable() | autocmd! load_us_ycm
+augroup END
+
+Plug 'honza/vim-snippets'
+Plug 'isRuslan/vim-es6'
+
+" Calling web apis
+Plug 'mattn/webapi-vim'
+
+
+" Displpay tags elements of a source code (classes, variables ...)
+if executable('ctags')
+  Plug 'majutsushi/tagbar'
+endif
+
+
+" -------------------
+" Language: Python
+" -------------------
+" Virtual env manipulation inside vim
+Plug 'jmcantrell/vim-virtualenv'
+
+" Python completion
+" Need to install the python Jedi autocompletion app to work
+" see https://github.com/davidhalter/jedi-vim#installation
+Plug 'davidhalter/jedi-vim'
+
+" Pydoc integration
+Plug 'fs111/pydoc.vim'
+
+
+" -------------------
+" Language: Scala
+" -------------------
+Plug 'derekwyatt/vim-scala'
+Plug 'derekwyatt/vim-sbt'
+Plug 'gre/play2vim'
+
+
+" -------------------
+" Language: HTML,
+" XML, and generators:
+"  * mustache
+"  * handlebars
+" -------------------
+Plug 'othree/html5.vim'
+" Enhanced markdown support
+Plug 'jtratner/vim-flavored-markdown'
+
+
+" -------------------
+" Format: JSON
+" -------------------
+Plug 'elzr/vim-json'
+
+
+" -------------------
+" Language: JavaScript
+" -------------------
+" ------ "
+" Syntax "
+" ------ "
+" Options
+" 'jelera/vim-javascript-syntax' " Jelera: No indent file
+" 'pangloss/vim-javascript'      " pangloss' is probably the oldest, lot of
+                               " contributors but not up-to-date
+                               " Includes indent settings
+" 'othree/yajs.vim'              " othree has the latest support
+"                                " no indent file, fork of jelera
+" The "for" is required so the syntax registers on filetype, otherwise
+" yajs has trouble overriding the default js syntax due to runtime order
+
+" Yet Another JavaScript Syntax file for Vim. Key differences:
+"
+"  * Use 'javascript' as group name's prefix, not 'javaScript' nor
+"    JavaScript'. Works great with SyntaxComplete.
+"  * Recognize Web API and DOM keywords. Base on Mozilla's WebIDL files
+"  * Works perfect with javascript-libraries-syntax.vim
+"  * Remove old, unused syntax definitions.
+"  * Support ES6 new syntax, ex: arrow function =>.
+Plug 'othree/yajs.vim'
+
+" ------------- "
+" Syntax Addons "
+" ------------- "
+" Options
+"'gavocanov/vim-js-indent'                " Indent from pangloss, works well
+                                          " with yajs well
+"'jiangmiao/simple-javascript-indenter'   " Alternative js indent
+"'jason0x43/vim-js-indent'                " Use HTML's indenter with
+                                          " TypeScript support
+Plug 'gavocanov/vim-js-indent'
+
+" Syntax for JavaScript libraries," including Angular. This is the hotness you
+"want to autocomplete ng-repeat et al. in your html.
+" Support libs id:
+"
+" * jQuery: jquery
+" * underscore.js: underscore
+" * Lo-Dash: underscore
+" * Backbone.js: backbone
+" * prelude.ls: prelude
+" * AngularJS: angularjs
+" * AngularUI: angularui
+" * AngularUI Router: angularuirouter
+" * React: react
+" * Flux: flux
+" * RequireJS: requirejs
+" * Sugar.js: sugar
+" * Jasmine: jasmine
+" * Chai: chai
+" * Handlebars: handlebars
+Plug 'othree/javascript-libraries-syntax.vim'
+
+" repo for UltiSnips & Snipmate for angular to be included as a submodule for
+" use in your .vim directory." ngfor<tab> ftw
+"Plug 'matthewsimo/angular-vim-snippets'
+
+" es.next support
+Plug 'othree/es.next.syntax.vim'
+
+" ---------- "
+" Completion "
+" ---------- "
+Plug 'othree/jspc.vim'
+" Ternjs vim integration
+Plug 'ternjs/tern_for_vim'
+
+" ------ "
+" JS DOC "
+" ------ "
+" <leader>pd on function to insert jsdoc above
+Plug 'heavenshell/vim-jsdoc'
+Plug 'othree/jsdoc-syntax.vim'
+
+" ----- "
+" Tests "
+" ----- "
+" Jasmine tests support
+Plug 'claco/jasmine.vim'
+
+" Plug 'mtscout6/syntastic-local-eslint.vim'
+
+
+" ------------------------------------
+" DevOps
+" ------------------------------------
+Plug 't9md/vim-chef'
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+Plug 'docker/docker', {'rtp': 'contrib/syntax/vim/'}
+
+" Add plugins to &runtimepath
+call plug#end()
 
 
 " ----------------------------------------------------------------------------
 " OS Related
 " ----------------------------------------------------------------------------
-
 " ------------------------------------
 " Clipboard -- use os clipboard
 " ------------------------------------
@@ -51,251 +299,9 @@ if empty($SSH_CONNECTION) && has('clipboard')
 endif
 
 
-" """"""" "
-" BUNDLES "
-" """"""" "
-" ------------ "
-" Dependencies "
-" ------------ "
-" Utility functions required by other plugins
-Bundle 'tomtom/tlib_vim'
-" Frontend for perl module App:ack
-" Search recursively in directory :Ack [options] {pattern} [{directory}]
-Bundle 'mileszs/ack.vim'
-
-" ------- "
-" General "
-" ------- "
-" Local .vimrc files
-Bundle 'MarcWeber/vim-addon-local-vimrc'
-
-" File explorer for vim
-Bundle 'scrooloose/nerdtree'
-" Buffer explorer / manager
-Bundle 'jlanzarotta/bufexplorer'
-" The plugin provides mappings to easily delete, change and add such
-" surroundings in pairs
-Bundle 'tpope/vim-surround'
-
-" Maintains a history of previous yanks, changes and deletes
-" Most recently used files
-Bundle 'vim-scripts/mru.vim'
-
-
-" ---------  "
-" Display    "
-" ---------- "
-" Enhanced status line
-Bundle 'bling/vim-airline'
-
-" Switch between abs and relative numbering depending of the mode
-Bundle 'myusuf3/numbers.vim'
-
-
-
-" --- "
-" Git "
-" --- "
-" Basic Git operations in vim
-Bundle 'tpope/vim-fugitive'
-" A gitk clone for vim: to test
-Bundle 'gregsexton/gitv'
-" Scripts for creating gists
-Bundle 'mattn/gist-vim'
-" Git gutter
-Bundle 'airblade/vim-gitgutter'
-
-
-" ------ "
-" Colors "
-" ------ "
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'zeis/vim-kolor'
-Bundle 'tomasr/molokai'
-
-
-" ----------- "
-" Programming "
-" ----------- "
-
-" ------------ "
-" Syntax check "
-" ------------ "
-" Editorconfig support
-Bundle 'editorconfig/editorconfig-vim'
-" Syntax checking for various languages
-Bundle 'scrooloose/syntastic'
-
-" Code snippets
-Bundle 'ervandew/supertab'
-
-Bundle 'SirVer/ultisnips'
-Bundle 'honza/vim-snippets'
-Bundle 'isRuslan/vim-es6'
-
-Bundle 'Valloric/YouCompleteMe'
-
-" Calling web apis
-Bundle 'mattn/webapi-vim'
-
-
-" Realign tabs
-Bundle 'godlygeek/tabular'
-
-" Displpay tags elements of a source code (classes, variables ...)
-if executable('ctags')
-  Bundle 'majutsushi/tagbar'
-endif
-
-
-" --- "
-" VIM "
-" --- "
-" A syntax checker / linter for vim files
-Bundle 'dbakker/vim-lint'
-
-
-" ------ "
-" Python "
-" ------ "
-" Virtual env manipulation inside vim
-Bundle 'jmcantrell/vim-virtualenv'
-
-" Python completion
-" Need to install the python Jedi autocompletion app to work
-" see https://github.com/davidhalter/jedi-vim#installation
-Bundle 'davidhalter/jedi-vim'
-
-" Pydoc integration
-Bundle 'fs111/pydoc.vim'
-
-" ----- "
-" Scala "
-" ------ "
-Bundle 'derekwyatt/vim-scala'
-Bundle 'derekwyatt/vim-sbt'
-Bundle 'gre/play2vim'
-
-
-" ========================================================================
-" Language: HTML, XML, and generators: mustache, handlebars
-" ========================================================================
-Bundle 'othree/html5.vim'
-
-
-" ========================================================================
-" Language: JSON
-" ========================================================================
-Bundle 'elzr/vim-json'
-
-" ========================================================================
-" Language: JavaScript
-" ========================================================================
-    " ----------------------------------------
-    " Syntax
-    " ----------------------------------------
-
-    " Options
-    " 'jelera/vim-javascript-syntax' " Jelera: No indent file
-    " 'pangloss/vim-javascript'      " pangloss' is probably the oldest, lot of
-                                   " contributors but not up-to-date
-                                   " Includes indent settings
-    " 'othree/yajs.vim'              " othree has the latest support
-    "                                " no indent file, fork of jelera
-    " The "for" is required so the syntax registers on filetype, otherwise
-    " yajs has trouble overriding the default js syntax due to runtime order
-
-    " Yet Another JavaScript Syntax file for Vim. Key differences:
-    "
-    "  * Use 'javascript' as group name's prefix, not 'javaScript' nor
-    "    JavaScript'. Works great with SyntaxComplete.
-    "  * Recognize Web API and DOM keywords. Base on Mozilla's WebIDL files
-    "  * Works perfect with javascript-libraries-syntax.vim
-    "  * Remove old, unused syntax definitions.
-    "  * Support ES6 new syntax, ex: arrow function =>.
-    Bundle 'othree/yajs.vim'
-
-    " ----------------------------------------
-    " Syntax Addons
-    " ----------------------------------------
-
-    " Options
-    "'gavocanov/vim-js-indent'                " Indent from pangloss, works well
-                                              " with yajs well
-    "'jiangmiao/simple-javascript-indenter'   " Alternative js indent
-    "'jason0x43/vim-js-indent'                " Use HTML's indenter with
-                                              " TypeScript support
-    Bundle 'gavocanov/vim-js-indent'
-
-    " Syntax for JavaScript libraries," including Angular. This is the hotness you
-    "want to autocomplete ng-repeat et al. in your html.
-    " Support libs id:
-    "
-    " * jQuery: jquery
-    " * underscore.js: underscore
-    " * Lo-Dash: underscore
-    " * Backbone.js: backbone
-    " * prelude.ls: prelude
-    " * AngularJS: angularjs
-    " * AngularUI: angularui
-    " * AngularUI Router: angularuirouter
-    " * React: react
-    " * Flux: flux
-    " * RequireJS: requirejs
-    " * Sugar.js: sugar
-    " * Jasmine: jasmine
-    " * Chai: chai
-    " * Handlebars: handlebars
-    Bundle 'othree/javascript-libraries-syntax.vim'
-
-    " repo for UltiSnips & Snipmate for angular to be included as a submodule for
-    " use in your .vim directory." ngfor<tab> ftw
-    "Bundle 'matthewsimo/angular-vim-snippets'
-
-    " es.next support
-    Bundle 'othree/es.next.syntax.vim'
-
-    " ----------------------------------------
-    " Completion
-    " ----------------------------------------
-    Bundle 'othree/jspc.vim'
-    " Ternjs vim integration
-    Bundle 'ternjs/tern_for_vim'
-
-    " ----------------------------------------
-    " JS DOC
-    " ----------------------------------------
-    " <leader>pd on function to insert jsdoc above
-    "Plug 'heavenshell/vim-jsdoc'
-    Bundle 'heavenshell/vim-jsdoc'
-    Bundle 'othree/jsdoc-syntax.vim'
-
-    " ----------------------------------------
-    " Tests
-    " ----------------------------------------
-    " Jasmine tests support
-    Bundle 'claco/jasmine.vim'
-
-    " Bundle 'mtscout6/syntastic-local-eslint.vim'
-" ------ "
-" DevOps "
-" ------ "
-Bundle 't9md/vim-chef'
-
-" ---- "
-" Misc "
-" ---- "
-" Enhanced markdown support
-Bundle 'jtratner/vim-flavored-markdown'
-
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-Plugin 'docker/docker', {'rtp': 'contrib/syntax/vim/'}
-
-
-" """"""" "
-" GENERAL "
-" """"""" "
+" ------------------------------------
+" General
+" ------------------------------------
 " Enable syntax highlighting
 syntax on
 
@@ -314,9 +320,9 @@ set viewoptions=folds,options,cursor,unix,slash
 let mapleader = ","
 
 
-" """""""""" "
-" Formatting "
-" """""""""" "
+" ------------------------------------
+" Formatting
+" ------------------------------------
 " Enable plugins and indentation rules loading according to file types
 if has("autocmd")
     filetype plugin indent on
@@ -345,9 +351,9 @@ set list                      " Whitespace characters are made visible
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
 
 
-" """""" "
-" Search "
-" """""" "
+" ------------------------------------
+" Search
+" ------------------------------------
 set incsearch                  " find as you type search
 set hlsearch                   " highlight search terms
 set winminheight=0             " windows can be 0 line high
@@ -355,9 +361,9 @@ set ignorecase                 " case insensitive search
 set smartcase                  " case sensitive when uc present
 
 
-" """ "
-" GUI "
-" """ "
+" ------------------------------------
+" GUI
+" ------------------------------------
 set showmode                   " show mode at bottom of screen
 set number                     " show line numbers
 set backspace=indent,eol,start " backspace for dummys (insert mode)
@@ -398,15 +404,13 @@ if has('statusline')
   set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
 endif
 
+
+" ------------------------------------
 " Completion
+" ------------------------------------
 set wildmenu                   " show list instead of just completing
 set wildmode=list:longest,full " command <Tab> completion, list matches, then longest common part, then all.
 set whichwrap=b,s,h,l,<,>,[,]  " backspace and cursor keys wrap to
-
-
-" """""""""" "
-" NAVIGATION "
-" """""""""" "
 
 " YouCompleteMe and UltiSnips compatibility
 " taken from : https://github.com/Valloric/YouCompleteMe/issues/36#issuecomment-171966710
@@ -434,7 +438,6 @@ function! g:UltiSnips_Reverse()
   return ""
 endfunction
 
-
 if !exists("g:UltiSnipsJumpForwardTrigger")
   let g:UltiSnipsJumpForwardTrigger = "<tab>"
 endif
@@ -446,14 +449,16 @@ endif
 au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger     . " <C-R>=g:UltiSnips_Complete()<cr>"
 au InsertEnter * exec "inoremap <silent> " .     g:UltiSnipsJumpBackwardTrigger . " <C-R>=g:UltiSnips_Reverse()<cr>"
 
+
+" ------------------------------------
+" Navigation
+" ------------------------------------
 nmap <C-n> :bn<CR>
 nmap <C-p> :bp<CR>
 
 
-
-
-" """"" "
-" THEME "
-" """"" "
+" ------------------------------------
+" Theme
+" ------------------------------------
 set background=dark            " Assume a dark background
 colorscheme molokai

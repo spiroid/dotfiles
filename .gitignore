@@ -1,7 +1,9 @@
 # vim bundle
 # They are automatically fetch by the Vundle plugin
 /.vim/bundle
+/.vim/plugged
 /.vim/tmp
+/.vim/autoload
 
 # Git generated files to ignore
 *.orig-*
