@@ -57,6 +57,7 @@ Plug 'vim-scripts/mru.vim'
 
 " Fuzzy search
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 
 " ------------------------------------
