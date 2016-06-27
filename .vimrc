@@ -250,7 +250,7 @@ Plug 'othree/es.next.syntax.vim'
 " ---------- "
 Plug 'othree/jspc.vim'
 " Ternjs vim integration
-Plug 'ternjs/tern_for_vim'
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 
 " ------ "
 " JS DOC "
