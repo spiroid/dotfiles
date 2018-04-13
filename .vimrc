@@ -1,3 +1,6 @@
+if has('vim_starting') | set encoding=utf-8 nobomb | endif
+scriptencoding utf-8
+" note: set encoding BEFORE scriptencoding
 
 "
 "   ██╗   ██╗ ██╗ ███╗   ███╗ ██████╗   ██████╗
@@ -7,9 +10,6 @@
 " ██╗╚████╔╝  ██║ ██║ ╚═╝ ██║ ██║  ██║ ╚██████╗
 " ╚═╝ ╚═══╝   ╚═╝ ╚═╝     ╚═╝ ╚═╝  ╚═╝  ╚═════╝
 "
-set encoding=utf-8 nobomb
-scriptencoding utf-8
-" note: set encoding BEFORE scriptencoding
 
 
 " ----------------------------------------------------------------------------
@@ -34,6 +34,8 @@ call plug#begin('~/.vim/plugged')
 " Utility functions required by other plugins
 Plug 'tomtom/tlib_vim'
 
+" Interactive command execution in Vim. 
+Plug 'Shougo/vimproc.vim'
 
 " ------------------------------------
 " General
@@ -149,7 +151,7 @@ Plug 'jmcantrell/vim-virtualenv'
 " Python completion
 " Need to install the python Jedi autocompletion app to work
 " see https://github.com/davidhalter/jedi-vim#installation
-Plug 'davidhalter/jedi-vim'
+" Plug 'davidhalter/jedi-vim'
 
 " Pydoc integration
 Plug 'fs111/pydoc.vim'
@@ -181,6 +183,35 @@ Plug 'elzr/vim-json'
 
 
 " -------------------
+" Language: TypeScript
+" -------------------
+"
+"  Tsuquyomi works as a client for TSServer(which is an editor service bundled
+"  into TypeScript). So, installing Tsuquyomi, your vim gets the following
+"  features provided by TSServer:
+"    * Completion (omni-completion)
+"    * Navigate to the location where a symbol is defined.
+"    * Show location(s) where a symbol is referenced.
+"    * Display a list of syntax and semantics errors to Vim
+"    * quickfix window.
+Plug 'Quramy/tsuquyomi'
+
+" Syntax file and other settings for TypeScript.
+Plug 'leafgarland/typescript-vim'
+
+" A Vim plgin to highlight JavaScript's Template Strings contents in other
+" FileType syntax rule which you want.
+Plug 'Quramy/vim-js-pretty-template'
+
+" Execute TypeScript dtsm command
+Plug 'Quramy/vim-dtsm'
+
+" This is a Vim plugin for typings/typings command, which is dependency
+" management tool for TypeScript .d.ts files
+Plug 'mhartington/vim-typings'
+
+
+" -------------------
 " Language: JavaScript
 " -------------------
 " ------ "
@@ -204,7 +235,7 @@ Plug 'elzr/vim-json'
 "  * Works perfect with javascript-libraries-syntax.vim
 "  * Remove old, unused syntax definitions.
 "  * Support ES6 new syntax, ex: arrow function =>.
-Plug 'othree/yajs.vim'
+Plug 'othree/yajs.vim', { 'for': 'javascript' }
 
 " ------------- "
 " Syntax Addons "
@@ -215,7 +246,7 @@ Plug 'othree/yajs.vim'
 "'jiangmiao/simple-javascript-indenter'   " Alternative js indent
 "'jason0x43/vim-js-indent'                " Use HTML's indenter with
                                           " TypeScript support
-Plug 'gavocanov/vim-js-indent'
+" Plug 'gavocanov/vim-js-indent'
 
 " Syntax for JavaScript libraries," including Angular. This is the hotness you
 "want to autocomplete ng-repeat et al. in your html.
@@ -324,7 +355,8 @@ let mapleader = ","
 " ------------------------------------
 " Formatting
 " ------------------------------------
-" Enable plugins and indentation rules loading according to file types
+" By default Vim doesn't automatically detect filetypes, so if you aren't
+" using vim-plug, you'll need to enable it manually
 if has("autocmd")
     filetype plugin indent on
 endif
