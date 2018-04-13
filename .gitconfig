@@ -3,6 +3,7 @@
     email = jonathan.dray@gmail.com
 [alias]
     ci = commit
+    co = checkout
     x = checkout HEAD
     bv = !git branch --color -v | cut -c1-100
     # incoming = !(git fetch --quiet && git log --pretty=format:'%C(yellow)%h %C(white)- %C(red)%an %C(white)- %C(cyan)%d%Creset %s %C(white)- %ar%Creset' ..@{u})
@@ -15,6 +16,7 @@
     st = status
     sa = status -sb --ignore-submodules=untracked
     lg = log --graph --abbrev-commit --decorate --date=relative --format=format:'%<(8)%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+    pom = pull origin master
 [push]
     default = simple
 [color]
@@ -26,3 +28,5 @@
     pager=true
 [core]
     editor = vim
+[credential]
+    helper = /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
