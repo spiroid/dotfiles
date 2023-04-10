@@ -16,3 +16,6 @@ DS_*
 .idea
 *~
 *.swp
+
+# Dotter
+.dotter/local.toml
