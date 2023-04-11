@@ -1,0 +1,17 @@
+# The `depends` field means that when this package is enabled, all of the
+# depended packages will be recursively enabled as well.
+# As you can see, I also left a comment that I need to configure certain
+# machine-specific variables if I want to use this package.
+
+# Note that variables from a selected package are available to all others.
+[sway]
+depends = ["graphics"]
+
+[sway.files]
+".config/sway/config" = "~/.config/sway/config"
+
+# A variables-only package, maybe it contains variables that are also
+# used by my terminal so I want them to exist when I select either of
+# the packages, without having to repeat them.
+[graphics.variables]
+font_size = 14
