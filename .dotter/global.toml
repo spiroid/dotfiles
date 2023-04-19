@@ -5,7 +5,7 @@
 
 # Note that variables from a selected package are available to all others.
 [sway]
-depends = ["graphics", "rofi"]
+depends = ["graphics", "rofi", "foot"]
 
 [sway.files]
 ".config/sway/config" = "~/.config/sway/config"
@@ -14,6 +14,8 @@ depends = ["graphics", "rofi"]
 ".config/rofi/config.rasi" = "~/.config/rofi/config.rasi"
 ".config/rofi/dracula.rasi" = "~/.config/rofi/dracula.rasi"
 
+[foot.files]
+".config/foot/foot.ini" = "~/.config/foot/foot.ini"
 
 # A variables-only package, maybe it contains variables that are also
 # used by my terminal so I want them to exist when I select either of
