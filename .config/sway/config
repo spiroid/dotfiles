@@ -222,4 +222,8 @@ bindsym $mod+r mode "resize"
 # }
 bar swaybar_command waybar
 
+# clipboard manager
+exec wl-paste --type text --watch cliphist store #Stores only text data
+bindsym $mod+Ctrl+v exec cliphist list | rofi -dmenu | cliphist decode | wl-copy
+
 include /etc/sway/config.d/*
