@@ -16,4 +16,4 @@ Just a place to keep my personal configuration files (dotfiles).
 
 Packages to install
 
-sudo pacman -S sway swaylock swayidle swaybg wayland xorg-xwayland rofi foot
+sudo pacman -S sway swaylock swayidle swaybg wayland xorg-xwayland rofi foot waybar
