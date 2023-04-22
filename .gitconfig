@@ -1,6 +1,6 @@
 [user]
-    name = Jonathan Dray
-    email = jonathan.dray@gmail.com
+	name = Jonathan Dray
+	email = jonathan.dray@spiroid.org
 [alias]
     ci = commit
     co = checkout
@@ -29,6 +29,8 @@
 [core]
     editor = vim
 [credential]
-    helper = /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
+    helper = /usr/lib/git-core/git-credential-gnome-keyring
 [pull]
-	rebase = true
+    rebase = true
+[init]
+	defaultBranch = main
