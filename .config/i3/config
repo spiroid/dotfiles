@@ -166,7 +166,7 @@ bindsym $mod+l exec i3lock -c 000000
 for_window [class="^.*"] border pixel 0
 
 # Custom float window for chrome controled by selenium automated tests
-for_window [title="data:, - Google Chrome"] floating enable, move container to workspace 1
+for_window [title="data:, - Google Chrome"] floating enable, move container to workspace $ws1
 for_window [class="(?i)VirtualBox"] floating enable
 for_window [class="(?i)robo3t"] floating enable
 for_window [class="(?i)gnome-calculator"] floating enable
@@ -194,4 +194,4 @@ exec_always --no-startup-id nm-applet
 exec_always --no-startup-id feh --bg-max /home/spiroid/Images/Wallpapers/wallpaper1_Malt_HD.png
 
 # Compton compositor
-exec --no-startup-id compton -b	
+exec --no-startup-id picom -b	
