@@ -11,9 +11,10 @@ I'm using [Dotter](https://github.com/SuperCuber/dotter) as dotfiles manager to 
    * foot for default terminal
    * waybar status bar
    * cliphist clipboard manager
+   * dunst to display notifications
 
 ## Sway environment
 
 ### Packages to install
 
-```sudo pacman -S sway swaylock swayidle swaybg wayland xorg-xwayland rofi foot waybar cliphist```
+```sudo pacman -S sway swaylock swayidle swaybg wayland xorg-xwayland rofi foot waybar cliphist dunst```
